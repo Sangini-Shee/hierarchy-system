@@ -98,7 +98,19 @@ app.get("/api/people/search/:name", async (req, res) => {
 app.get("/test-route", (req, res) => {
   res.json({ message: "Test route working" });
 });
+app.get("/create-principal", async (req, res) => {
+  try {
+    const principal = await Person.create({
+      name: "Dr. Priya Sharma",
+      role: "Principal",
+      parentId: null
+    });
 
+    res.json(principal);
+  } catch (err) {
+    res.status(500).json({ error: "Creation failed" });
+  }
+});
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
